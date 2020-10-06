@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
+import { AddressData, Err } from '../types';
 
 class ApiService {
   private readonly API_URL: string = 'https://geo.ipify.org';
@@ -13,7 +14,7 @@ class ApiService {
 
     const interceptorResponseFn = (
       response: AxiosResponse<any>
-    ): AxiosResponse<any> => response.data;
+    ): AxiosResponse<AddressData> => response.data;
 
     const interceptorErrorFn = (error: any) => {
       return Promise.reject({
@@ -28,13 +29,28 @@ class ApiService {
     );
   }
 
-  async get(ip?: string) {
-    return await this.pub('api/v1', {
+  async get(ip?: string): Promise<AddressData> {
+    const res = await this.pub('api/v1', {
       params: {
         apiKey: this.API_KEY,
         ipAddress: ip
       }
-    })
+    }) as any;
+
+    return {
+      isp: res.isp,
+      ip: res.ip,
+      location: {
+        city: res.location.city,
+        country: res.location.country,
+        postalCode: res.location.postalCode,
+        timeZone: res.location.timezone,
+        coordinates: {
+          lat: res.location.lat,
+          lng: res.location.lng
+        }
+      }
+    }
   }
 }
 
