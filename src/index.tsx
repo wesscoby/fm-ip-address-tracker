@@ -1,14 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ReactQueryDevtools as RQD } from 'react-query-devtools';
+import { ReactQueryConfigProvider } from 'react-query';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
+const queryConfig = {
+  queries: {
+    refetchOnWindowFocus: false,
+    retry: false
+  }
+}
+
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ReactQueryConfigProvider config={queryConfig}>
+      <App />
+      <RQD initialIsOpen={false} />
+    </ReactQueryConfigProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
