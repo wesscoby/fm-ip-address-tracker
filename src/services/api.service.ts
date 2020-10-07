@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { AddressData, Err } from '../types';
+import { AddressData } from '../types';
 
 class ApiService {
   private readonly API_URL: string = 'https://geo.ipify.org';

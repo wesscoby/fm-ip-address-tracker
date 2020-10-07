@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { ClockLoader } from 'react-spinners';
 
 import mapConfig from './map-config';
 import { useIpify } from './hooks/ipify';
